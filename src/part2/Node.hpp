@@ -8,9 +8,9 @@ class Node{
 private:
     int key;
     std::string value;
-    Node *parent{nullptr};
-    Node *left{nullptr}; 
-    Node *right{nullptr};
+    Node *parent = nullptr;
+    Node *left = nullptr; 
+    Node *right = nullptr;
 
 public:
     Node(int k, std::string v);

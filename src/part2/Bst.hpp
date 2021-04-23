@@ -25,8 +25,9 @@ void BST_Insert(Node *root, int k, std::string& v);
  * @param root That identifies the tree
  * @param u The subtree to overwrite
  * @param v The new subtree
+ * @return Root of the updated tree
  */
-void BST_Transplant(Node *root, Node *u, Node *v);
+Node* BST_Transplant(Node *root, Node *u, Node *v);
 
 /**
  * Finds the minimum of a subtree.
@@ -44,16 +45,27 @@ Node* BST_Minimum(Node *x);
 Node* BST_Find(Node *root, int k);
 
 /**
+ * This function is not needed for the functioning of the BST.
+ * It was added for testing purpose.
+ * Finds a node and prints his value.
+ * @param root Root of the tree
+ * @param k Key of the Node to find
+ */
+void Find(Node* root, int k);
+
+/**
  * Removes Node with key k from the tree and makes the tree a BST again.
  * @param root Root of the tree
  * @param k Key of the node to remove 
+ * @return The new root
  */
-void BST_Remove(Node *root, int k);
+Node* BST_Remove(Node *root, int k);
 
 /**
  * Removes all Nodes from the tree, which then becomes empty.
  * @param x The root of each subtree 
+ * @return The new root (NULL)
  */
-void BST_Clear(Node *x);
+Node* BST_Clear(Node *x);
 
 #endif
