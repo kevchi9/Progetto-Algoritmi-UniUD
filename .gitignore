@@ -2,7 +2,7 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=c++,python
 
 # Ignore Mac system files
-.DS_store
+.DS_Store
 
 ### C++ ###
 # Prerequisites
