@@ -198,4 +198,4 @@ build/*
 *.jpg
 
 # Ignore Mac system files
-*.DS_Store
+.DS_Store
