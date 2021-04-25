@@ -1,9 +1,6 @@
 # Created by https://www.toptal.com/developers/gitignore/api/c++,python
 # Edit at https://www.toptal.com/developers/gitignore?templates=c++,python
 
-# Ignore Mac system files
-.DS_Store
-
 ### C++ ###
 # Prerequisites
 *.d
@@ -199,3 +196,6 @@ build/*
 # images
 *.png
 *.jpg
+
+# Ignore Mac system files
+.DS_Store
