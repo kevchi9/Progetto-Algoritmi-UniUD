@@ -11,7 +11,7 @@ class BST{
      * Prints the representation of the tree.
      * @param x The root of each subtree
      */
-    void Show(Node *x);
+    void show(Node *x);
 
     /**
      * Adds a new Node to the tree with the given root and then returns the tree's root.
@@ -20,7 +20,7 @@ class BST{
      * @param v The value of the new Node
      * @return The root
      */
-    void BST_Insert(Node *root, int k, std::string& v);
+    void BST_insert(Node *root, int k, std::string& v);
 
     /**
      * Replaces one subtree as a child of its parent with anorther subtree.
@@ -31,14 +31,14 @@ class BST{
      * @param v The new subtree
      * @return Root of the updated tree
      */
-    Node* Transplant(Node *root, Node *u, Node *v);
+    Node* transplant(Node *root, Node *u, Node *v);
 
     /**
      * Finds the minimum of a subtree.
      * @param x Root of the subtree
      * @return The minimum of the subtree
      */
-    Node* Minimum(Node *x);
+    Node* minimum(Node *x);
 
     /**
      * Finds the Node with key k in the tree with the given root.
@@ -46,7 +46,7 @@ class BST{
      * @param k Key of the Node to find
      * @return The Node x
      */
-    Node* Find(Node *root, int k);
+    Node* find(Node *root, int k);
 
     /**
      * This function is not needed for the functioning of the BST.
@@ -55,7 +55,7 @@ class BST{
      * @param root Root of the tree
      * @param k Key of the Node to find
      */
-    void Find_Value(Node* root, int k);
+    void find_value(Node* root, int k);
 
     /**
      * Removes Node with key k from the tree keeping the BST properties.
@@ -63,14 +63,14 @@ class BST{
      * @param k Key of the node to remove 
      * @return The new root
      */
-    Node* BST_Remove(Node *root, int k);
+    Node* BST_remove(Node *root, int k);
 
     /**
      * Removes all Nodes from the tree, which then becomes empty.
      * @param x The root of each subtree 
      * @return The new root (NULL)
      */
-    Node* Clear(Node *x);
+    Node* clear(Node *x);
 
 };
 

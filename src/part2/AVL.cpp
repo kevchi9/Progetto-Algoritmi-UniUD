@@ -27,15 +27,15 @@ Node* AVL::left_rotate(Node* x){
     return temp;
 }
 
-Node* AVL::AVL_Insert(Node* root, int k, std::string v){
+Node* AVL::AVL_insert(Node* root, int k, std::string v){
     if (root == nullptr){
         root = new Node(k,v);
         root->increase_height(); 
     }
     if (root->get_key() > k){
-        root->set_left(AVL_Insert(root->get_left(), k, v));
+        root->set_left(AVL_insert(root->get_left(), k, v));
     } else {
-        root->set_right(AVL_Insert(root->get_right(), k, v));
+        root->set_right(AVL_insert(root->get_right(), k, v));
     } 
     // updates the node height
     root->set_height(std::max(root->get_left()->get_height(), root->get_right()->get_height()) + 1);
@@ -55,6 +55,6 @@ Node* AVL::AVL_Insert(Node* root, int k, std::string v){
     return root;
 }
 
-Node* AVL::AVL_Remove(Node* root, int k){
+Node* AVL::AVL_remove(Node* root, int k){
     return root;
 }

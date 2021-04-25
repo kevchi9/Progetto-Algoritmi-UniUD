@@ -36,7 +36,7 @@ class AVL : public BST {
      * @param v The value of the new Node.
      * @return The root
      */
-    Node* AVL_Insert(Node* root, int k, std::string v);
+    Node* AVL_insert(Node* root, int k, std::string v);
 
     /**
      * Removes Node with key k from the tree keeping the AVL properties.
@@ -44,7 +44,7 @@ class AVL : public BST {
      * @param k Key of the node to remove.
      * @return The new root.
      */
-    Node* AVL_Remove(Node* root, int k);
+    Node* AVL_remove(Node* root, int k);
 
 };
 

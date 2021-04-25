@@ -19,23 +19,23 @@ void run_BST(){
                 if (root == nullptr){
                     root = new Node(k, v);
                 } else {
-                    T->BST_Insert(root, k, v);
+                    T->BST_insert(root, k, v);
                 }
                 break;
             case 's':
-                T->Show(root);
+                T->show(root);
                 std::cout << '\n';
                 break;
             case 'r':
                 std::cin >> k;
-                root = T->BST_Remove(root,k);
+                root = T->BST_remove(root,k);
                 break;
             case 'f':
                 std::cin >> k;
-                T->Find_Value(root,k);
+                T->find_value(root,k);
                 break;
             case 'c':
-                root = T->Clear(root);
+                root = T->clear(root);
                 break;
             case 'e':
                 exit(0);
@@ -59,7 +59,7 @@ void run_AVL(){
                 std::cin >> k;
                 std::cin >> v;
                 if(root != nullptr){
-                    root = T->AVL_Insert(root, k, v);
+                    root = T->AVL_insert(root, k, v);
                 } else {
                     root = new Node(k, v);
                 }
@@ -67,16 +67,16 @@ void run_AVL(){
             case 'r':
                 std::cin >> k;
                 std::cout << "Ancora da implementare\n";
-                root = T->AVL_Remove(root, k);
+                root = T->AVL_remove(root, k);
                 break;
             case 'c':
-                root = T->Clear(root);
+                root = T->clear(root);
             case 'f':
                 std::cin >> k;
-                T->Find_Value(root, k);
+                T->find_value(root, k);
                 break;
             case 's':
-                T->Show(root);
+                T->show(root);
                 break;
             case 'e':
                 exit(0);
