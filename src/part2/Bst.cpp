@@ -1,27 +1,28 @@
 #include "Node.hpp"
-#include "Bst.hpp"
+#include "BST.hpp"
 #include <iostream>
 
-void BST_Show(Node *x) {
+
+void BST::Show(Node *x) {
     if (x == nullptr){
         std::cout << "NULL" << ' ';
         return;
     } else {
         std::cout << x->get_key() << ':' << x->get_value() << ' ';
     }
-    BST_Show(x->get_left());
-    BST_Show(x->get_right());
+    Show(x->get_left());
+    Show(x->get_right());
     std::cout << '\n';
 }
 
-void BST_Insert(Node *root, int k, std::string& v){
+void BST::BST_Insert(Node *root, int k, std::string& v){
     Node* y = nullptr;
     Node* x = root;
     Node* z = new Node(k, v);
     if (root == nullptr){ // if tree was empty
         root = z;
         std::cout << "Root updated \n";
-        BST_Show(root);
+        Show(root);
         return;
     }
     while (x != nullptr){
@@ -39,7 +40,8 @@ void BST_Insert(Node *root, int k, std::string& v){
         y->set_right(z);
     }
 }
-Node* BST_Transplant(Node *root, Node *u, Node *v) {
+
+Node* BST::Transplant(Node *root, Node *u, Node *v) {
     if(u->get_parent() == nullptr){
         root = v;
     } else if (u == u->get_parent()->get_left()) {
@@ -52,14 +54,35 @@ Node* BST_Transplant(Node *root, Node *u, Node *v) {
     return root;
 }
 
-Node* BST_Minimum(Node *x){
+Node* BST::BST_Remove(Node *root, int k){
+    Node* z = Find(root, k);
+    
+    if (z->get_left() == nullptr){
+        root = Transplant(root, z, z->get_right());
+    } else if (z->get_right() == nullptr){
+        root = Transplant(root, z, z->get_left());
+    } else {
+        Node* y = Minimum(z->get_right());
+        if (y->get_parent() != z){
+            root = Transplant(root, y, y->get_right());
+            y->set_right(z->get_right());
+            y->get_right()->set_parent(y);
+        }
+        root = Transplant(root, z, y);
+        y->set_left(z->get_left());
+        y->get_left()->set_parent(y);
+    }
+    return root;
+}
+
+Node* BST::Minimum(Node *x){
     while (x->get_left() != nullptr){
         x = x->get_left();
     }
     return x;
 }
 
-Node* BST_Find(Node *root, int k){
+Node* BST::Find(Node *root, int k){
     Node* x = root;
     while(x->get_key() != k){
         if (x->get_key() > k){
@@ -71,85 +94,24 @@ Node* BST_Find(Node *root, int k){
     return x;
 }
 
-void Find(Node* root, int k){
-    if (k > root->get_key()){
-        Find(root->get_right(), k);
-    } else if (k < root->get_key()){
-        Find(root->get_left(), k);
-    } else {
-        std::cout << root->get_value();
-    }
-}
-
-Node* BST_Remove(Node *root, int k){
-    Node* z = BST_Find(root, k);
+void BST::Find_Value(Node* root, int k){
     
-    if (z->get_left() == nullptr){
-        root = BST_Transplant(root, z, z->get_right());
-    } else if (z->get_right() == nullptr){
-        root = BST_Transplant(root, z, z->get_left());
+    if (k > root->get_key()){
+        Find_Value(root->get_right(), k);
+    } else if (k < root->get_key()){
+        Find_Value(root->get_left(), k);
     } else {
-        Node* y = BST_Minimum(z->get_right());
-        if (y->get_parent() != z){
-            root = BST_Transplant(root, y, y->get_right());
-            y->set_right(z->get_right());
-            y->get_right()->set_parent(y);
-        }
-        root = BST_Transplant(root, z, y);
-        y->set_left(z->get_left());
-        y->get_left()->set_parent(y);
+        std::cout << root->get_value() << '\n';
     }
-    return root;
 }
 
-Node* BST_Clear(Node *x) {
+Node* BST::Clear(Node *x) {
     if (x == nullptr){
         return x;
     }
-    BST_Clear(x->get_left());
-    BST_Clear(x->get_right());
+    Clear(x->get_left());
+    Clear(x->get_right());
     delete x;
     x = nullptr;
     return x;
-}
-
-int main(){
-    std::string input;
-    int k;
-    std::string v;
-    Node* root = nullptr;
-    do {
-        std::cin >> input;
-        switch (input[0]) {
-        case 'i':
-            std::cin >> k;
-            std::cin >> v;
-            if (root == nullptr){
-                root = new Node(k, v);
-            } else {
-                BST_Insert(root, k, v);
-            }
-            break;
-        case 's':
-            BST_Show(root);
-            std::cout << '\n';
-            break;
-        case 'r':
-            std::cin >> k;
-            root = BST_Remove(root,k);
-            break;
-        case 'f':
-            std::cin >> k;
-            BST_Find(root,k);
-            break;
-        case 'c':
-            root = BST_Clear(root);
-            break;
-        case 'e':
-            exit(0);
-        default:
-            std::cout << "Comando non riconosciuto\n"; 
-            break;
-        }
-    } while(true);
 }
