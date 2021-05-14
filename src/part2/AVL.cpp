@@ -1,6 +1,6 @@
 #include "Node.hpp"
 #include "AVL.hpp"
-#include "BST.hpp"                  // imported for the BST's basic functions
+#include "BST.hpp"
 #include <iostream>
 #include <algorithm>
 
@@ -95,28 +95,6 @@ Node* AVL::AVL_balance(Node* root){
     }
 }
 
-/*
-Node* AVL::AVL_balance_insertion(Node* root, int k){
-    int balance_difference = get_balance(root);
-
-    // checks if the tree is balanced and fixes it
-    if ( balance_difference > 1 && k < root->get_left()->get_key()) {
-        std::cout << "RIGHT Rotation\n";
-        return right_rot(root);
-    } else if (balance_difference < -1 && k > root->get_right()->get_key()) {
-        std::cout << "LEFT Rotation\n";
-        return left_rot(root);
-    } else if (balance_difference > 1 && k > root->get_left()->get_key()){
-        std::cout << "LEFT-RIGHT Rotation\n";
-        return lr_rot(root);
-    } else if (balance_difference < -1 && k < root->get_right()->get_key()){
-        std::cout << "RIGHT-LEFT Rotation\n";
-        return rl_rot(root);
-    }
-    return root;
-}
-*/
-
 void AVL::print_info(Node* root){
     if (root != nullptr){
         std::cout << "\nNodo " << root->get_key() << '\n';
@@ -174,18 +152,3 @@ Node* AVL::AVL_remove(Node *root, int k){
     std::cout << "check 5s\n";
     return AVL_balance(root);
 }
-
-
-
-/*
-
-insert 10 ten
-insert 4 four
-insert 16 sixteen
-remove 10
-insert 3 three
-insert 2 two
-insert 6 six
-insert 9 nine
-
-*/

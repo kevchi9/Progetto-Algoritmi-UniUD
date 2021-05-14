@@ -11,15 +11,7 @@ void run_BST(){
     int k;
     std::string v;
     Node* root = nullptr;
-/*
-    root = T.BST_insert(root, 9, "nine");
-    root = T.BST_insert(root, 7, "seven");
-    root = T.BST_insert(root, 5, "five");
-    root = T.BST_insert(root, 3, "three");
-    root = T.BST_insert(root, 8, "eight");
-    root = T.BST_insert(root, 10, "ten");
-    root = T.BST_insert(root, 11, "Eleven");
-*/
+
     do {
         std::cin >> input;
         switch (input[0]) {
@@ -66,17 +58,6 @@ void run_AVL(){
     int k;
     std::string v;
     Node* root = nullptr;
-    root = T.AVL_insert(root, 100, "cento");
-    root = T.AVL_insert(root, 37, "ts");
-    root = T.AVL_insert(root, 21, "vu");
-    root = T.AVL_insert(root, 9, "nove");
-    T.show(root);
-    root = T.AVL_insert(root, 121, "cv");
-    root = T.AVL_insert(root, 70, "settanta");    
-    root = T.AVL_insert(root, 45, "qc");    
-    root = T.AVL_insert(root, 3, "swog");
-    T.show(root);
-    //T.print_info(root);
 
     do{ 
         std::cin >> input;
