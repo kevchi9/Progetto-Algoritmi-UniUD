@@ -9,25 +9,31 @@ class AVL : public BST {
     public:
 
     /**
+     * Prints the representation of the tree.
+     * @param x The root of each subtree
+     */
+    void show(Node *x);
+
+    /**
      * Calculates the height difference between two subtree
      * @param root The root of the two subtree.
      * @return Value of the difference. 
      */
-    unsigned int get_balance(Node* root);
-
-    /**
-     * Does a right rotation on Node x.
-     * @param x Node used as pin.
-     * @return The new root.
-     */
-    Node* right_rotate(Node* x);
+    int get_balance(Node* root);
 
     /**
      * Does a left rotation on Node x.
      * @param x Node used as pin.
      * @return The new root.
      */
-    Node* left_rotate(Node* x);
+    Node* left_rot(Node* x);
+
+    /**
+     * Does a right rotation on Node x.
+     * @param x Node used as pin.
+     * @return The new root.
+     */
+    Node* right_rot(Node* x);
 
     /**
      * Adds a new Node to the tree with the given root and then returns the tree's root.
@@ -45,6 +51,23 @@ class AVL : public BST {
      * @return The new root.
      */
     Node* AVL_remove(Node* root, int k);
+
+    /**
+     * Checks if the tree is balanced after an insertion and fixes it.
+     * @param root Root of the tree.
+     * @return The new root.
+     */
+    Node* AVL_balance(Node* root);
+
+    /**
+     *  ### ONLY FOR DEBUGGING PURPOSES ###
+     */
+    void print_info(Node* root);
+
+    /**
+     * Calculates heights of the root's subtrees
+     */
+    void check_height(Node* root);
 
 };
 
