@@ -1,11 +1,21 @@
 #ifndef _BST_H
 #define _BST_H
 
-#include "Node.hpp"
+#include "../include/Node.hpp"
 
 class BST{
 
+    private:
+
+    Node* root;
+
     public:
+
+    BST();
+
+    Node* get_root();
+
+    void set_root(Node* x);
 
     /**
      * Prints the representation of the tree.
@@ -15,23 +25,20 @@ class BST{
 
     /**
      * Adds a new Node to the tree with the given root.
-     * @param root Root.
      * @param k The key of the new Node.
      * @param v The value of the new Node.
-     * @return The new root.
      */
-    Node* BST_insert(Node *root, int k, std::string v);
+    void BST_insert(Node* z);
 
     /**
      * Replaces one subtree as a child of its parent with another subtree. 
      * When BST_transplant replaces the subtree rooted at Node u with the subtree rooted at Node v, 
      * Node u's parent becomes node v's parent, and u's parent ends up having v as its child.
-     * @param root Root of the tree.
      * @param u The subtree to overwrite.
      * @param v The new subtree.
      * @return Root of the updated tree.
      */
-    Node* transplant(Node *root, Node *u, Node *v);
+    void transplant(Node *u, Node *v);
 
     /**
      * Finds the minimum of a subtree.
@@ -42,36 +49,34 @@ class BST{
 
     /**
      * Finds the Node x with key k in the tree with the given root.
-     * @param root Root of the tree.
      * @param k Key of the Node to find.
      * @return The Node x.
      */
-    Node* find(Node *root, int k);
+    Node* find(int k);
 
     /**
      * This function is not needed for the functioning of the BST.
      * It was added for testing purpose.
      * Finds a node and prints his value.
-     * @param root Root of the tree.
      * @param k Key of the Node to find.
      */
-    void find_value(Node* root, int k);
+    std::string find_value(int k);
 
     /**
      * Removes Node with key k from the tree keeping the BST properties.
-     * @param root Root of the tree.
      * @param k Key of the node to remove.
-     * @return The new root.
      */
-    Node* BST_remove(Node *root, int k);
+    void BST_remove(int k);
 
     /**
      * Removes all Nodes from the tree, which then becomes empty.
      * @param x The root of each subtree.
      * @return The new root (NULL).
      */
-    Node* clear(Node *x);
-
+    void clear(Node* root);
+    /**
+     *  ### ONLY FOR DEBUGGING PURPOSES ###
+     */
     void print_info(Node* root);
 };
 

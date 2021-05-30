@@ -1,9 +1,23 @@
-#include "Node.hpp"
-#include "BST.hpp"
+#include "../include/Node.hpp"
+#include "../include/BST.hpp"
 #include <iostream>
+#include <assert.h>
 
+// PER DEBUGGARE USA GLI ASSERT 
+// OGNI VOLTA CHE C'è UNA FRECCIA USA UN ASSERT 
+// OGNI FRECCETTA è UN POTENZIALE SEGFAULT
 
-void BST::show(Node *x) {
+BST::BST(): root(nullptr) {}
+
+Node* BST::get_root(){
+    return this->root;
+}
+
+void BST::set_root(Node* x){
+    root = x;
+}
+
+void BST::show(Node* x) {
     if (x == nullptr){
         std::cout << "NULL" << ' ';
         return;
@@ -15,17 +29,17 @@ void BST::show(Node *x) {
     //std::cout << '\n';
 }
 
-Node* BST::BST_insert(Node *root, int k, std::string v){
+void BST::BST_insert(Node* z){
     Node* y = nullptr;
-    Node* x = root;
-    Node* z = new Node(k, v);
-    if (root == nullptr){ // if tree was empty
-        root = z;
-        return root;
+    Node* x = get_root();
+
+    if (x == nullptr){ // if tree was empty
+        set_root(z);
+        return;
     }
     while (x != nullptr){
         y = x;
-        if (k < x->get_key()){
+        if (z->get_key() < x->get_key()){
             x = x->get_left();
         } else {
             x = x->get_right();
@@ -37,12 +51,14 @@ Node* BST::BST_insert(Node *root, int k, std::string v){
     } else { 
         y->set_right(z);
     }
-    return root;
 }
 
-Node* BST::transplant(Node *root, Node *u, Node *v) {
-    if(u->get_parent() == nullptr){
-        root = v;
+void BST::transplant(Node *u, Node *v) {
+    std::cout << "rrrrrrrr\n";
+    if(u == get_root()){
+        std::cout << "aaaaaa1123234\n";
+        set_root(v);
+        return;
     } else if (u == u->get_parent()->get_left()) {  // se u è figlio sx
         u->get_parent()->set_left(v);
     } else {
@@ -50,29 +66,31 @@ Node* BST::transplant(Node *root, Node *u, Node *v) {
     } if (v != nullptr) {
         v->set_parent(u->get_parent());
     }
-    return root;
 }
 
-Node* BST::BST_remove(Node *root, int k){
-    Node* z = find(root, k);
+void BST::BST_remove(int k){
+    Node* z = find(k);
    
     if (z->get_left() == nullptr){          // il nodo da rimuovere non ha figlio sx
-        root = transplant(root, z, z->get_right());      
+        transplant(z, z->get_right());      
     } else if (z->get_right() == nullptr){  // non ha figlio dx
-        root = transplant(root, z, z->get_left());
+        transplant(z, z->get_left());
     } else {                                // ha entrambi i figli
         Node* y = minimum(z->get_right());  // cerco il minimo
+
         if (y->get_parent() != z){          // il minimo non è direttamente collegato a z
-            root = transplant(root, y, y->get_right());
+            transplant(y, y->get_right());
             y->set_right(z->get_right());
             y->get_right()->set_parent(y);
-        }                                   // il minimo è figlio diretto di z
-        root = transplant(root, z, y);
-
+        }  
+        if (z == get_root()) {
+                set_root(y);
+        }                                 // il minimo è figlio diretto di z
+        transplant(z, y);
         y->set_left(z->get_left());
         y->get_left()->set_parent(y);
     }
-    return root;
+    delete z;
 }
 
 Node* BST::minimum(Node *x){
@@ -82,8 +100,8 @@ Node* BST::minimum(Node *x){
     return x;
 }
 
-Node* BST::find(Node *root, int k){
-    Node* x = root;
+Node* BST::find(int k){
+    Node *x = get_root();
     while(x->get_key() != k){
         if (x->get_key() > k){
             x = x->get_left();
@@ -94,51 +112,57 @@ Node* BST::find(Node *root, int k){
     return x;
 }
 
-void BST::find_value(Node* root, int k){
-    
-    if (k > root->get_key()){
-        find_value(root->get_right(), k);
-    } else if (k < root->get_key()){
-        find_value(root->get_left(), k);
-    } else {
-        std::cout << root->get_value() << '\n';
+std::string BST::find_value(int k){
+    Node* x = get_root();
+    while(x != nullptr){
+        if (k > x->get_key()){
+            x = x->get_right();
+        } else if (k < x->get_key()){
+            x = x->get_left();
+        } else {
+            return x->get_value();
+            
+        }
     }
+    return "NULL";
 }
 
-Node* BST::clear(Node *x) {
+void BST::clear(Node *x) {
+
     if (x == nullptr){
-        return x;
+        set_root(x);
+        return;
     }
     clear(x->get_left());
     clear(x->get_right());
     delete x;
     x = nullptr;
-    return x;
+    return;
 }
 
-void BST::print_info(Node* root){
-    if (root != nullptr){
-        std::cout << "Nodo " << root->get_key();
+void BST::print_info(Node* x){
+    if (x != nullptr){
+        std::cout << "Nodo " << x->get_key();
         std::cout << "\nParent = ";
-        if (root->get_parent() != nullptr){
-        std::cout << root->get_parent()->get_key();
+        if (x->get_parent() != nullptr){
+        std::cout << x->get_parent()->get_key();
         } else {
             std::cout << "NULL";
         }
         std::cout << "\nLeft = ";
-        if (root->get_left() != nullptr){
-            std::cout << root->get_left()->get_key();
+        if (x->get_left() != nullptr){
+            std::cout << x->get_left()->get_key();
         } else {
             std::cout << "NULL";
         }
         std::cout << "\nRight = ";
-        if (root->get_right() != nullptr){
-            std::cout << root->get_right()->get_key();
+        if (x->get_right() != nullptr){
+            std::cout << x->get_right()->get_key();
         } else {
             std::cout << "NULL";
         }
         std::cout << "\n__________________\n";
-        print_info(root->get_left());
-        print_info(root->get_right());
+        print_info(x->get_left());
+        print_info(x->get_right());
     }
 }

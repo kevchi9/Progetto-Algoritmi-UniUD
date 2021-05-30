@@ -1,8 +1,8 @@
 #include <string>
 #include <iostream>
-#include "Node.hpp"
-#include "BST.hpp"
-#include "AVL.hpp"
+#include "../include/Node.hpp"
+#include "../include/AVL.hpp"
+#include "../include/BST.hpp"
 
 void run_BST(){
     BST T;
@@ -10,40 +10,48 @@ void run_BST(){
     std::string input;
     int k;
     std::string v;
-    Node* root = nullptr;
-
+    Node* x = T.get_root();
     do {
         std::cin >> input;
         switch (input[0]) {
             case 'i':
+            {
                 std::cin >> k;
                 std::cin >> v;
-                if (root == nullptr){
-                    root = new Node(k, v);
-                } else {
-                    root = T.BST_insert(root, k, v);
-                }
+                Node* z = new Node(k, v);
+                T.BST_insert(z);
                 break;
+            }
             case 's':
-                T.show(root);
+            {
+                T.show(T.get_root());
                 std::cout << '\n';
                 break;
+            }
             case 'r':
+            {
                 std::cin >> k;
-                root = T.BST_remove(root,k);
+                T.BST_remove(k);
                 break;
+            }
             case 'f':
+            {
                 std::cin >> k;
-                T.find_value(root,k);
+                std::cout << T.find_value(k) << '\n';
                 break;
+            }
             case 'c':
-                root = T.clear(root);
+            {
+                T.clear(x);
                 break;
+            }
             case 'e':
                 exit(0);
             case 'p':
-                T.print_info(root);
+            {
+                T.print_info(x);
                 break;
+            }
             default:
                 std::cout << "Comando non riconosciuto\n"; 
                 break;
@@ -57,40 +65,48 @@ void run_AVL(){
     std::string input;
     int k;
     std::string v;
-    Node* root = nullptr;
 
     do{ 
         std::cin >> input;
         switch(input[0]){
             case 'i':
+            {
                 std::cin >> k;
                 std::cin >> v;
-                if(root != nullptr){
-                    root = T.AVL_insert(root, k, v);
-                } else {
-                    root = new Node(k, v);
-                }
+                Node* y = new Node(k, v);
+                T.AVL_insert(y);
                 break;
+            }
             case 'r':
+            {
                 std::cin >> k;
-                root = T.AVL_remove(root, k);
+                T.AVL_remove(k);
                 break;
+            }
             case 'c':
-                root = T.clear(root);
+            {
+                T.clear(T.get_root());
                 break;
+            }
             case 'f':
+            {
                 std::cin >> k;
-                T.find_value(root, k);
+                std::cout << T.find_value(k) << '\n';
                 break;
+            }
             case 's':
-                T.show(root);
+            {
+                T.show(T.get_root());
                 std::cout << '\n';
                 break;
+            }
             case 'e':
                 exit(0);
             case 'p':
-                T.print_info(root);
+            {
+                T.print_info(T.get_root());
                 break;
+            }
             default:
                 std::cout << "Comando non riconosciuto\n";
                 break;

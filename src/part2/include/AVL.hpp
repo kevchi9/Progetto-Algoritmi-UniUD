@@ -2,12 +2,21 @@
 #define _AVL_H
 
 #include <string.h>
-#include "Node.hpp"
-#include "BST.hpp"
+#include "../include/Node.hpp"
+#include "../include/BST.hpp"
 class AVL : public BST {
+
+    private: 
+
+    Node* root;
 
     public:
 
+    AVL();
+
+    Node* get_root();
+
+    void set_root(Node* x);
     /**
      * Prints the representation of the tree.
      * @param x The root of each subtree
@@ -24,50 +33,51 @@ class AVL : public BST {
     /**
      * Does a left rotation on Node x.
      * @param x Node used as pin.
-     * @return The new root.
      */
-    Node* left_rot(Node* x);
+    void left_rot(Node* x);
 
     /**
      * Does a right rotation on Node x.
      * @param x Node used as pin.
-     * @return The new root.
      */
-    Node* right_rot(Node* x);
+    void right_rot(Node* x);
 
+    void right_left_rot(Node* x);
+
+    void left_right_rot(Node* x);
     /**
      * Adds a new Node to the tree with the given root and then returns the tree's root.
-     * @param root That identifies the tree.
-     * @param k The key of the new Node.
-     * @param v The value of the new Node.
-     * @return The root
+     * @param z The new node;
      */
-    Node* AVL_insert(Node* root, int k, std::string v);
+    void AVL_insert(Node* z);
+    Node* find(int k);
 
+    void transplant(Node* u, Node* v);
     /**
      * Removes Node with key k from the tree keeping the AVL properties.
      * @param root Root of the tree.
      * @param k Key of the node to remove.
      * @return The new root.
      */
-    Node* AVL_remove(Node* root, int k);
+    void AVL_remove(int k);
 
     /**
      * Checks if the tree is balanced after an insertion and fixes it.
      * @param root Root of the tree.
      * @return The new root.
      */
-    Node* AVL_balance(Node* root);
+    void AVL_balance(Node* root);
 
-    /**
-     *  ### ONLY FOR DEBUGGING PURPOSES ###
-     */
-    void print_info(Node* root);
+    void AVL_balance_helper(Node* x);
 
     /**
      * Calculates heights of the root's subtrees
      */
-    void check_height(Node* root);
+    void check_height(Node* x);
+
+    void clear(Node* x);
+
+    std::string find_value(int k);
 
 };
 

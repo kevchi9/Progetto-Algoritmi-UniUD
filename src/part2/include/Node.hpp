@@ -21,12 +21,6 @@ public:
     Node(int k, std::string v);
 
     /**
-     * Clones a node.
-     * @return the copy of the Node.
-     */
-    Node* clone();
-
-    /**
      * Changes value of Node's parent.
      * @param x The new parent.
      */
