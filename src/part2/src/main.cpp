@@ -1,9 +1,78 @@
-#include <string>
-#include <iostream>
+#include "../include/core.hpp"
 #include "../include/Node.hpp"
 #include "../include/AVL.hpp"
 #include "../include/BST.hpp"
+#include "../include/RBT.hpp"
+#include "../include/NodeRBT.hpp"
 
+#include <string>
+#include <iostream>
+
+/*
+insert 19 nineteen
+insert 9 nine
+insert 1 one
+insert 7 seven
+insert 12 twelve
+insert 13 thirteen
+insert 16 sixteen
+*/
+
+void run_RBT(){
+    RBT T;
+
+    std::string input;
+    int k;
+    std::string v;
+
+    do {
+        std::cin >> input;
+        switch (input[0]) {
+            case 'i':
+            {
+                std::cin >> k;
+                std::cin >> v;
+                T.RBT_Insert(k, v);
+                break;
+            }
+            case 's':
+            {
+                T.RBT_Show(T.get_root());
+                std::cout << '\n';
+                break;
+            }
+            case 'f':
+            {
+                std::cin >> k;
+                std::cout << T.RBT_Find(k)->get_value() << '\n';
+                break;
+            }
+            case 'c':
+            {
+                T.RBT_Clear(T.get_root());
+                break;
+            }
+            case 'p':
+            {
+                T.print_info(T.get_root());
+                break;
+            }
+            case 'e':
+                exit(0);
+            default:
+                std::cout << "Comando non riconosciuto\n"; 
+                break;
+        }
+    } while(true);
+}
+
+
+int main(){
+    //main_BST();
+    run_RBT();
+}
+
+/**
 void run_BST(){
     BST T;
 
@@ -132,3 +201,4 @@ int main(){
             exit(0);
     }
 }
+*/

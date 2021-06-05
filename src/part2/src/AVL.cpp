@@ -29,10 +29,12 @@ void AVL::show(Node *x) {
 
 int AVL::get_balance(Node* x){
 
-    if (x != nullptr){
-        
+    if (x != nullptr)
+    {
         return (x->get_left()->get_height() - x->get_right()->get_height());
-    } else {
+    }
+    else 
+    {
         return 0;
     }
 }
@@ -221,40 +223,42 @@ void AVL::AVL_balance_helper(Node* x){
 }
 
 void AVL::AVL_balance(Node* x) {
-    //int b = get_balance(x);
+
     Node* left = x->get_left();
     Node* right = x->get_right();
-/*
-    if (b > 1) {
-        if (get_balance(left) > 0){
-            right_rot(x);
-        } else {
-            left_right_rot(x);
-        }
-    } else if (b < -1){
-        if(get_balance(right) > 0){
-            right_left_rot(x);
-        } else {
-            left_rot(x);
-        }
-    }
-}*/
-    if(x != nullptr) {
-        if (left->get_height() > right->get_height() + 1){
-            if (left->get_left()->get_height() >= left->get_right()->get_height()){ // rotations on left subtree
+
+    if(x != nullptr) 
+    {
+        if (left->get_height() > right->get_height() + 1)
+        {
+            if (left->get_left()->get_height() >= left->get_right()->get_height()) // rotations on left subtree
+            {
                 right_rot(x);
-            } else {
+            } 
+            
+            else
+
+            {
                 left_right_rot(x);
             }
-        } else if (1 + left->get_height() < right->get_height() ) {
-            if (right->get_right()->get_height() >= right->get_left()->get_height()){ // rotations on right subtree
+        } 
+        else if (1 + left->get_height() < right->get_height() ) 
+        {
+            if (right->get_right()->get_height() >= right->get_left()->get_height()) // rotations on right subtree
+            {
                 left_rot(x);
-            } else {
+            }
+            else 
+            {
                 right_left_rot(x);
             }
-        } else if (get_balance(left) > 1) {
+        } 
+        else if (get_balance(left) > 1) 
+        {
             AVL_balance(left);
-        } else if (get_balance(right) > 1) {
+        }
+        else if (get_balance(right) > 1) 
+        {
             AVL_balance(right);
         }
     }
