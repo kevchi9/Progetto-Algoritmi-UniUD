@@ -2,6 +2,7 @@
 #include "../include/Node.hpp"
 #include "../include/AVL.hpp"
 #include "../include/BST.hpp"
+#include "../include/RBT.hpp"
 
 #include <chrono>
 #include <random>
@@ -56,7 +57,7 @@ void main_BST()
     std::ofstream output_file;
     output_file.open ("tempi.csv");
 
-    tree_tester(output_file, time_results, min, max);
+    tree_tester(output_file, time_results, min, max, 'B');
 
     double mean = calculate_mean(time_results);
 
@@ -91,7 +92,7 @@ double calculate_mean(double times[])
     return mean / 100;
 }
 
-void tree_tester(std::ofstream &output_file, double time_results[], double min, double max)
+void tree_tester(std::ofstream &output_file, double time_results[], double min, double max, char tree_type)
 {
 
     for(int unsigned cicles = 1; cicles <= 100; cicles++)
@@ -101,41 +102,128 @@ void tree_tester(std::ofstream &output_file, double time_results[], double min, 
         unsigned int n_local = n * cicles;
         generate_random_nodes(n_local);
         unsigned int inserted_nodes_counter = 0;
-        BST T;
-
-        high_resolution_clock::time_point t1 = high_resolution_clock::now();
-
-        for (unsigned int i = 0; i < n_local; i++)
+        switch(tree_type)
         {
-            std::string value_of_node = T.find_value(input_keys[i]);
-
-            if (value_of_node == "NULL")
+            case 'B':
             {
-                Node *new_node = new Node(input_keys[i], input_values[i]);
-                T.BST_insert(new_node);
-                inserted_nodes_counter++;
+                BST T;
+
+                high_resolution_clock::time_point t1 = high_resolution_clock::now();
+
+                for (unsigned int i = 0; i < n_local; i++)
+                {
+                    std::string value_of_node = T.find_value(input_keys[i]);
+
+                    if (value_of_node == "NULL")
+                    {
+                        Node *new_node = new Node(input_keys[i], input_values[i]);
+                        T.insert(new_node);
+                        inserted_nodes_counter++;
+                    }
+                }
+
+                high_resolution_clock::time_point t2 = high_resolution_clock::now();
+                duration<double> time_span = duration_cast<duration<double> >(t2 - t1);
+
+                double value_registered = time_span.count();
+                
+                output_file << n_local << ',' << value_registered << '\n' ;
+
+                std::cout << "Tempo di esecuzione: " << value_registered << '\n';
+                std::cout << "Nodi inseriti: " << inserted_nodes_counter << "\n\n";
+
+                time_results[cicles - 1] = value_registered;
+
+                if(value_registered > max)
+                {
+                    max = value_registered;
+                }
+                else if (value_registered < min) 
+                {
+                    min = value_registered;
+                }
+                break;
             }
-        }
+            case 'A' :
+            {
+                AVL T;
 
-        high_resolution_clock::time_point t2 = high_resolution_clock::now();
-        duration<double> time_span = duration_cast<duration<double> >(t2 - t1);
+                high_resolution_clock::time_point t1 = high_resolution_clock::now();
 
-        double value_registered = time_span.count();
-        
-        output_file << n_local << ',' << value_registered << '\n' ;
+                for (unsigned int i = 0; i < n_local; i++)
+                {
+                    std::string value_of_node = T.find_value(input_keys[i]);
 
-        std::cout << "Tempo di esecuzione: " << value_registered << '\n';
-        std::cout << "Nodi inseriti: " << inserted_nodes_counter << "\n\n";
+                    if (value_of_node == "NULL")
+                    {
+                        Node *new_node = new Node(input_keys[i], input_values[i]);
+                        T.insert(new_node);
+                        inserted_nodes_counter++;
+                    }
+                }
 
-        time_results[cicles - 1] = value_registered;
+                high_resolution_clock::time_point t2 = high_resolution_clock::now();
+                duration<double> time_span = duration_cast<duration<double> >(t2 - t1);
 
-        if(value_registered > max)
-        {
-            max = value_registered;
-        }
-        else if (value_registered < min) 
-        {
-            min = value_registered;
+                double value_registered = time_span.count();
+                
+                output_file << n_local << ',' << value_registered << '\n' ;
+
+                std::cout << "Tempo di esecuzione: " << value_registered << '\n';
+                std::cout << "Nodi inseriti: " << inserted_nodes_counter << "\n\n";
+
+                time_results[cicles - 1] = value_registered;
+
+                if(value_registered > max)
+                {
+                    max = value_registered;
+                }
+                else if (value_registered < min) 
+                {
+                    min = value_registered;
+                }
+                break;
+            }
+            case 'R' :
+            {
+                RBT T;
+
+                high_resolution_clock::time_point t1 = high_resolution_clock::now();
+
+                for (unsigned int i = 0; i < n_local; i++)
+                {
+                    std::string value_of_node = T.find_value(input_keys[i]);
+
+                    if (value_of_node == "NULL")
+                    {
+                        NodeRBT *new_node = new NodeRBT(input_keys[i], input_values[i]);
+                        T.insert(new_node);
+                        inserted_nodes_counter++;
+                    }
+                }
+
+                high_resolution_clock::time_point t2 = high_resolution_clock::now();
+                duration<double> time_span = duration_cast<duration<double> >(t2 - t1);
+
+                double value_registered = time_span.count();
+                
+                output_file << n_local << ',' << value_registered << '\n' ;
+
+                std::cout << "Tempo di esecuzione: " << value_registered << '\n';
+                std::cout << "Nodi inseriti: " << inserted_nodes_counter << "\n\n";
+
+                time_results[cicles - 1] = value_registered;
+
+                if(value_registered > max)
+                {
+                    max = value_registered;
+                }
+                else if (value_registered < min) 
+                {
+                    min = value_registered;
+                }
+                break;
+            }
         }
 
         input_keys.clear();

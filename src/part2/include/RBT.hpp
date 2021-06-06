@@ -21,7 +21,7 @@
              * 
              * @param x The root of each subtree
              */
-            void RBT_Show(NodeRBT *x); //std::string& result
+            void show(NodeRBT *x); //std::string& result
 
             /**
              * Adds a new NodeRBT to the tree with the given root and then returns the tree's root 
@@ -31,35 +31,35 @@
              * @param v The value of the new NodeRBT
              * @return The root
              */
-            void RBT_Insert(int k, std::string v);
+            void insert(NodeRBT* x);
 
             /**
              * Handles the various cases of fixing the RBT after inserting a new node
              * 
              * @param new_node The node added to the RBT.ù 
              */
-            void RBT_InsertFix(NodeRBT* new_node);
+            void insert_fix(NodeRBT* new_node);
 
-            NodeRBT* RBT_Insert_PRed_URed(NodeRBT* new_node);
-            void RBT_Insert_PRed_UBlack(NodeRBT* new_node);
-            void RBT_Insert_PRed_UBlack_LL(NodeRBT* new_node);
-            void RBT_Insert_PRed_UBlack_RR(NodeRBT* new_node);
+            NodeRBT* insert_PRed_URed(NodeRBT* new_node);
+            void insert_PRed_UBlack(NodeRBT* new_node);
+            void insert_PRed_UBlack_LL(NodeRBT* new_node);
+            void insert_PRed_UBlack_RR(NodeRBT* new_node);
 
-            void RBT_SwapColors(NodeRBT* node1, NodeRBT* node2);
+            void swap_colors(NodeRBT* node1, NodeRBT* node2);
 
             /**
              * Rotates from its right child towards himself all the subtrees (not recursively)
              * 
              * @param placeh The upper node. (ITS RIGHT CHILD MUST BE NOT NULL)
              */
-            void RBT_LeftRotate(NodeRBT* placeh);
+            void left_rot(NodeRBT* placeh);
 
             /**
              * Rotates from its left child towards himself all the subtrees (not recursively) 
              * 
              * @param placeh The upper node. (ITS LEFT CHILD MUST BE NOT NULL)
              */
-            void RBT_RightRotate(NodeRBT* placeh);
+            void right_rot(NodeRBT* placeh);
 
             /**
              * Finds the element specified by the key passed and
@@ -70,11 +70,13 @@
              * @return  The node in which key is present or
              *          nullptr if key was not found
              */
-            NodeRBT* RBT_Find(int key);
+            NodeRBT* find(int key);
+
+            std::string find_value(int key);
 
             void print_info(NodeRBT* x);
 
-            void RBT_Clear(NodeRBT* x);
+            void clear(NodeRBT* x);
     };
 
 #endif

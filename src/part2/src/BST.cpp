@@ -29,7 +29,7 @@ void BST::show(Node* x) {
     //std::cout << '\n';
 }
 
-void BST::BST_insert(Node* z){
+void BST::insert(Node* z){
     Node* y = nullptr;
     Node* x = get_root();
 
@@ -68,7 +68,7 @@ void BST::transplant(Node *u, Node *v) {
     }
 }
 
-void BST::BST_remove(int k){
+void BST::remove(int k){
     Node* z = find(k);
    
     if (z->get_left() == nullptr){          // il nodo da rimuovere non ha figlio sx

@@ -28,7 +28,7 @@ class BST{
      * @param k The key of the new Node.
      * @param v The value of the new Node.
      */
-    void BST_insert(Node* z);
+    void insert(Node* z);
 
     /**
      * Replaces one subtree as a child of its parent with another subtree. 
@@ -66,7 +66,7 @@ class BST{
      * Removes Node with key k from the tree keeping the BST properties.
      * @param k Key of the node to remove.
      */
-    void BST_remove(int k);
+    void remove(int k);
 
     /**
      * Removes all Nodes from the tree, which then becomes empty.

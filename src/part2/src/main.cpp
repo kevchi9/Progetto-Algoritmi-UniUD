@@ -8,16 +8,6 @@
 #include <string>
 #include <iostream>
 
-/*
-insert 19 nineteen
-insert 9 nine
-insert 1 one
-insert 7 seven
-insert 12 twelve
-insert 13 thirteen
-insert 16 sixteen
-*/
-
 void run_RBT(){
     RBT T;
 
@@ -32,24 +22,25 @@ void run_RBT(){
             {
                 std::cin >> k;
                 std::cin >> v;
-                T.RBT_Insert(k, v);
+                NodeRBT* x = new NodeRBT(k,v);
+                T.insert(x);
                 break;
             }
             case 's':
             {
-                T.RBT_Show(T.get_root());
+                T.show(T.get_root());
                 std::cout << '\n';
                 break;
             }
             case 'f':
             {
                 std::cin >> k;
-                std::cout << T.RBT_Find(k)->get_value() << '\n';
+                std::cout << T.find_value(k) << '\n';
                 break;
             }
             case 'c':
             {
-                T.RBT_Clear(T.get_root());
+                T.clear(T.get_root());
                 break;
             }
             case 'p':
@@ -66,13 +57,6 @@ void run_RBT(){
     } while(true);
 }
 
-
-int main(){
-    //main_BST();
-    run_RBT();
-}
-
-/**
 void run_BST(){
     BST T;
 
@@ -88,7 +72,7 @@ void run_BST(){
                 std::cin >> k;
                 std::cin >> v;
                 Node* z = new Node(k, v);
-                T.BST_insert(z);
+                T.insert(z);
                 break;
             }
             case 's':
@@ -100,7 +84,7 @@ void run_BST(){
             case 'r':
             {
                 std::cin >> k;
-                T.BST_remove(k);
+                T.remove(k);
                 break;
             }
             case 'f':
@@ -143,13 +127,13 @@ void run_AVL(){
                 std::cin >> k;
                 std::cin >> v;
                 Node* y = new Node(k, v);
-                T.AVL_insert(y);
+                T.insert(y);
                 break;
             }
             case 'r':
             {
                 std::cin >> k;
-                T.AVL_remove(k);
+                T.remove(k);
                 break;
             }
             case 'c':
@@ -182,6 +166,21 @@ void run_AVL(){
         }
     } while(true);
 }
+
+int main(){
+    //main_BST();
+    run_RBT();
+}
+
+/*
+
+insert 3 three
+insert 7 seven
+insert 9 nine
+insert 0 zero
+insert 12 twelve
+show
+find 3
 
 int main(){
     std::string type_of_tree;

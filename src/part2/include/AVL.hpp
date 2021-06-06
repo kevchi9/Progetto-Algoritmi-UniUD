@@ -49,7 +49,7 @@ class AVL : public BST {
      * Adds a new Node to the tree with the given root and then returns the tree's root.
      * @param z The new node;
      */
-    void AVL_insert(Node* z);
+    void insert(Node* z);
     Node* find(int k);
 
     void transplant(Node* u, Node* v);
@@ -59,16 +59,16 @@ class AVL : public BST {
      * @param k Key of the node to remove.
      * @return The new root.
      */
-    void AVL_remove(int k);
+    void remove(int k);
 
     /**
      * Checks if the tree is balanced after an insertion and fixes it.
      * @param root Root of the tree.
      * @return The new root.
      */
-    void AVL_balance(Node* root);
+    void balance(Node* root);
 
-    void AVL_balance_helper(Node* x);
+    void balance_helper(Node* x);
 
     /**
      * Calculates heights of the root's subtrees

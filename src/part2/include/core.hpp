@@ -13,6 +13,6 @@ double calculate_mean(double times[]);
 
 double calculate_stderr(double mean, double time_results[]);
 
-void tree_tester(std::ofstream &output_file, double time_results[], double min, double max);
+void tree_tester(std::ofstream &output_file, double time_results[], double min, double max, char tree_type);
 
 #endif
