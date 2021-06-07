@@ -272,7 +272,7 @@ void AVL::remove(int k)
     balance_helper(get_root());
 }
 
-void AVL::balance_helper(Node* x)
+void AVL::balance_helper(Node* x) //TODO: questo non va bene. Rivedere e cambiare. Troppo costoso
 {
     if(x != nullptr)
     {
