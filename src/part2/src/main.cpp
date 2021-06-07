@@ -168,19 +168,12 @@ void run_AVL(){
 }
 
 int main(){
-    //main_BST();
-    run_RBT();
+    //core('B');
+    //core('A');
+    core('R');
 }
 
 /*
-
-insert 3 three
-insert 7 seven
-insert 9 nine
-insert 0 zero
-insert 12 twelve
-show
-find 3
 
 int main(){
     std::string type_of_tree;

@@ -254,8 +254,23 @@ NodeRBT* RBT::find(int k)
 
 std::string RBT::find_value(int k)
 {
-    NodeRBT* x = find(k);
-    return x->get_value();
+    NodeRBT* x = get_root();
+    while(x != nullptr)
+    {
+        if (k > x->get_key())
+        {
+            x = x->get_right();
+        } 
+        else if (k < x->get_key())
+        {
+            x = x->get_left();
+        } 
+        else 
+        {
+            return x->get_value();    
+        }
+    }
+    return "NULL";
 }
 
 void RBT::clear(NodeRBT* x) 
