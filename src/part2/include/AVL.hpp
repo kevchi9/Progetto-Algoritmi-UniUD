@@ -49,7 +49,10 @@ class AVL : public BST {
      * Adds a new Node to the tree with the given root and then returns the tree's root.
      * @param z The new node;
      */
-    void insert(Node* z);
+    int insert(Node *x, Node *p, Node *y);
+
+    void insert_helper(Node *x, Node *p, Node *y);
+
     Node* find(int k);
 
     void transplant(Node* u, Node* v);
@@ -78,6 +81,8 @@ class AVL : public BST {
     void clear(Node* x);
 
     std::string find_value(int k);
+
+    void fix_height(Node *x);
 
 };
 

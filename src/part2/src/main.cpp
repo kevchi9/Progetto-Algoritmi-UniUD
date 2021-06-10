@@ -127,15 +127,15 @@ void run_AVL(){
                 std::cin >> k;
                 std::cin >> v;
                 Node* y = new Node(k, v);
-                T.insert(y);
+                T.insert_helper(T.get_root(), nullptr, y);
                 break;
-            }
+            }/*
             case 'r':
             {
                 std::cin >> k;
                 T.remove(k);
                 break;
-            }
+            }*/
             case 'c':
             {
                 T.clear(T.get_root());
@@ -167,14 +167,13 @@ void run_AVL(){
     } while(true);
 }
 
-int main(){
-    //core('B');
-    //core('A');
-    core('R');
-}
+int main()
+{
+    core();
+} 
+
 
 /*
-
 int main(){
     std::string type_of_tree;
     std::cout << "Inserire il tipo di struttura che si desidera utilizzare (BST - AVL) : \n";

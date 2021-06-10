@@ -11,6 +11,7 @@ private:
     Node *parent = nullptr;
     Node *left = nullptr; 
     Node *right = nullptr;
+    int height;
 
 public:
     /**
@@ -37,6 +38,27 @@ public:
      * @param x The new right.
      */
     void set_right(Node* x);
+
+    /**
+     * Gives back value of Node's height.
+     * @return x.height.
+     */
+    int get_height();
+
+    /**
+     * Changes value of Node's height.
+     * @param k The new height.
+     */
+    void set_height(int k);
+    /**
+     * Decreases Node's height by one.
+     */
+    void decrease_height();
+
+    /**
+     * Increases Node's height by one.
+     */
+    void increase_height();
 
     /**
      * Gives back value of Node's key.
@@ -68,12 +90,6 @@ public:
      */
     Node* get_right();
 
-    /**
-     * Tells the height of the node
-     * @param p The parent of the interested Node
-     * @return Height of the Node
-     */
-    int get_height();
     //void set_height(unsigned int k);
 };
 

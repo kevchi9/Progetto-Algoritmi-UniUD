@@ -2,10 +2,7 @@
 #include <string>
 #include <iostream>
 
-NodeRBT::NodeRBT(int k, std::string v) : key(k), value(v)
-{
-    enum node_color color = BLACK;
-}
+NodeRBT::NodeRBT(int k, std::string v) : key(k), value(v), color(BLACK){}
 
 void NodeRBT::set_parent(NodeRBT* x) 
 {
