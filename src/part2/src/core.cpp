@@ -112,99 +112,103 @@ void tree_tester(int numero_find[])
 
         generate_random_nodes(n_nodi);
 
-        unsigned int BST_inserted_nodes_counter = 0;
-        unsigned int AVL_inserted_nodes_counter = 0;
-        unsigned int RBT_inserted_nodes_counter = 0;
+        unsigned int inserted_nodes_counter = 0;
 
-        BST T;
+        // inizio esecuzione BST
 
-        high_resolution_clock::time_point BST_t1 = high_resolution_clock::now(); // start chronometer
+        BST BST_tree;
+
+        auto BST_t1 = steady_clock::now(); // start chronometer
 
         for (unsigned int i = 0; i < n_nodi; i++) // search for nodes and insert them if they are not in the tree
         {
-            std::string value_of_node = T.find_value(input_keys[i]);
+            std::string value_of_node = BST_tree.find_value(input_keys[i]);
 
             if (value_of_node == "NULL")
             {
                 Node *new_node = new Node(input_keys[i], input_values[i]);
-                T.insert(new_node);
-                BST_inserted_nodes_counter++;
+                BST_tree.insert(new_node);
+                inserted_nodes_counter++;
             }
         }
 
-        high_resolution_clock::time_point BST_t2 = high_resolution_clock::now(); // stop chronometer
+        auto BST_t2 = steady_clock::now(); // stop chronometer
         duration<double> BST_time_span = duration_cast<duration<double>>(BST_t2 - BST_t1);
 
         double value_registered = BST_time_span.count();
 
-        output_file1 << n_nodi << ',' << value_registered << ',' << BST_inserted_nodes_counter << '\n';
+        output_file1 << n_nodi << ',' << value_registered << ',' << inserted_nodes_counter << '\n';
         output_file1.flush();
 
         std::cout << "Tempo di esecuzione BST: " << value_registered << '\n';
-        std::cout << "Nodi inseriti in BST: " << BST_inserted_nodes_counter << "\n\n";
+        std::cout << "Nodi inseriti in BST: " << inserted_nodes_counter << "\n\n";
 
         BST_time_results[cicles - 1] = value_registered;
+        inserted_nodes_counter = 0;
 
-        // fine esecuzione BST
+        // fine esecuzione BST - inizio esecuzione AVL
 
-        AVL T2;
+        AVL AVL_tree;
 
-        high_resolution_clock::time_point AVL_t1 = high_resolution_clock::now();
+        auto AVL_t1 = steady_clock::now();
 
         for (unsigned int i = 0; i < n_nodi; i++)
         {
-            std::string value_of_node = T2.find_value(input_keys[i]);
+            std::string value_of_node = AVL_tree.find_value(input_keys[i]);
 
             if (value_of_node == "NULL")
             {
                 Node *new_node = new Node(input_keys[i], input_values[i]);
-                T2.insert(T2.get_root(), nullptr, new_node);
-                AVL_inserted_nodes_counter++;
+                AVL_tree.insert(AVL_tree.get_root(), nullptr, new_node);
+                inserted_nodes_counter++;
             }
         }
 
-        high_resolution_clock::time_point AVL_t2 = high_resolution_clock::now();
+        auto AVL_t2 = steady_clock::now();
         duration<double> AVL_time_span = duration_cast<duration<double>>(AVL_t2 - AVL_t1);
 
         double AVL_value_registered = AVL_time_span.count(); // il lasso temporale per l'esecuzione di un ciclo
 
-        output_file2 << n_nodi << ',' << AVL_value_registered << ',' << AVL_inserted_nodes_counter << '\n';
+        output_file2 << n_nodi << ',' << AVL_value_registered << ',' << inserted_nodes_counter << '\n';
         output_file2.flush();
 
         std::cout << "Tempo di esecuzione AVL: " << AVL_value_registered << '\n';
-        std::cout << "Nodi inseriti in AVL: " << AVL_inserted_nodes_counter << "\n\n";
+        std::cout << "Nodi inseriti in AVL: " << inserted_nodes_counter << "\n\n";
         AVL_time_results[cicles - 1] = value_registered;
+        inserted_nodes_counter = 0;
 
-        // fine esecuzione AVL
+        // fine esecuzione AVL - inizio esecuzione RBT
 
-        RBT T3;
+        RBT RBT_tree;
 
-        high_resolution_clock::time_point RBT_t1 = high_resolution_clock::now();
+        auto RBT_t1 = steady_clock::now();
 
         for (unsigned int i = 0; i < n_nodi; i++)
         {
-            std::string value_of_node = T3.find_value(input_keys[i]);
+            std::string value_of_node = RBT_tree.find_value(input_keys[i]);
 
             if (value_of_node == "NULL")
             {
                 NodeRBT *new_node = new NodeRBT(input_keys[i], input_values[i]);
-                T3.insert(new_node);
-                RBT_inserted_nodes_counter++;
+                RBT_tree.insert(new_node);
+                inserted_nodes_counter++;
             }
         }
 
-        high_resolution_clock::time_point RBT_t2 = high_resolution_clock::now();
+        auto RBT_t2 = steady_clock::now();
         duration<double> RBT_time_span = duration_cast<duration<double>>(RBT_t2 - RBT_t1);
 
         double RBT_value_registered = RBT_time_span.count();
 
-        output_file3 << n_nodi << ',' << RBT_value_registered << ',' << RBT_inserted_nodes_counter << '\n';
+        output_file3 << n_nodi << ',' << RBT_value_registered << ',' << inserted_nodes_counter << '\n';
         output_file3.flush();
 
         std::cout << "Tempo di esecuzione RBT: " << RBT_value_registered << '\n';
-        std::cout << "Nodi inseriti in RBT: " << RBT_inserted_nodes_counter << "\n\n";
+        std::cout << "Nodi inseriti in RBT: " << inserted_nodes_counter << "\n\n";
 
         RBT_time_results[cicles - 1] = RBT_value_registered;
+        inserted_nodes_counter = 0;
+
 
         // fine esecuzione RBT 
 
