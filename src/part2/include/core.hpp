@@ -13,6 +13,8 @@ void tree_tester(int find_times[]);
  */
 void generate_random_nodes(unsigned int n);
 
+void generate_random_nodes_worst_case(unsigned int n);
+
 /**
  * Function used for Nodes' random values.
  */

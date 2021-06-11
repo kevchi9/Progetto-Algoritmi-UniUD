@@ -7,6 +7,9 @@
 
 #include <string>
 #include <iostream>
+#include <chrono>
+
+using namespace std::chrono;
 
 void run_RBT(){
     RBT T;
@@ -14,7 +17,6 @@ void run_RBT(){
     std::string input;
     int k;
     std::string v;
-
     do {
         std::cin >> input;
         switch (input[0]) {
@@ -63,7 +65,13 @@ void run_BST(){
     std::string input;
     int k;
     std::string v;
-    Node* x = T.get_root();
+    /*
+    for (int i = 0; i < 10000; i++)
+    {
+        Node* x = new Node(input_keys[i], "a");
+        T.insert(x);
+    }
+    */
     do {
         std::cin >> input;
         switch (input[0]) {
@@ -90,19 +98,25 @@ void run_BST(){
             case 'f':
             {
                 std::cin >> k;
-                std::cout << T.find_value(k) << '\n';
+                //auto BST_t1_find = steady_clock::now();
+                std::string value = T.find_value(k);
+                //auto BST_t2_find = steady_clock::now();
+                //auto calc = duration_cast<duration<double>>(BST_t2_find - BST_t1_find).count();
+                //calc = calc * 1000;
+                //std::cout << calc << '\n';
+                std::cout << value << '\n';
                 break;
             }
             case 'c':
             {
-                T.clear(x);
+                T.clear(T.get_root());
                 break;
             }
             case 'e':
                 exit(0);
             case 'p':
             {
-                T.print_info(x);
+                T.print_info(T.get_root());
                 break;
             }
             default:
@@ -118,7 +132,13 @@ void run_AVL(){
     std::string input;
     int k;
     std::string v;
-
+    /*
+    for (int i = 0; i < 10000; i++)
+    {
+        Node* x = new Node(input_keys[i], "a");
+        T.insert_helper(T.get_root(), nullptr, x);
+    }
+    */
     do{ 
         std::cin >> input;
         switch(input[0]){
@@ -144,7 +164,13 @@ void run_AVL(){
             case 'f':
             {
                 std::cin >> k;
-                std::cout << T.find_value(k) << '\n';
+                // auto AVL_t1_find = steady_clock::now();
+                std::string value_of_node = T.find_value(k);
+                // auto AVL_t2_find = steady_clock::now();
+                // auto calc = duration_cast<duration<double>>(AVL_t2_find - AVL_t1_find).count();
+                // calc = calc * 1000;
+                // std::cout << calc << '\n';
+                std::cout << value_of_node << '\n';
                 break;
             }
             case 's':
@@ -172,12 +198,14 @@ int main()
     core();
 } 
 
-
 /*
+
+
 int main(){
     std::string type_of_tree;
     std::cout << "Inserire il tipo di struttura che si desidera utilizzare (BST - AVL) : \n";
     std::cin >> type_of_tree;
+    //generate_random_nodes(10000);
     switch(type_of_tree[0]) {
         case 'B' :
             std::cout << "Hai scelto BST.\n";
@@ -192,4 +220,5 @@ int main(){
             exit(0);
     }
 }
+
 */

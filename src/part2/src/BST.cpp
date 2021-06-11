@@ -112,16 +112,22 @@ Node* BST::find(int k){
     return x;
 }
 
-std::string BST::find_value(int k){
-    Node* x = get_root();
-    while(x != nullptr){
-        if (k > x->get_key()){
+std::string BST::find_value(int k)
+{
+    Node *x = get_root();
+    while (x != nullptr)
+    {
+        if (k > x->get_key())
+        {
             x = x->get_right();
-        } else if (k < x->get_key()){
+        } 
+        else if (k < x->get_key())
+        {
             x = x->get_left();
-        } else {
+        } 
+        else 
+        {
             return x->get_value();
-            
         }
     }
     return "NULL";
