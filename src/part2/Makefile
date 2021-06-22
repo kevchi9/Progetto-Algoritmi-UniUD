@@ -1,5 +1,5 @@
 CXX       := g++
-CXX_FLAGS := -O2 -Wall -Wextra -std=c++17 -pedantic
+CXX_FLAGS := -O2 -Wall -Wextra -std=c++17 -pedantic -Wconversion -Wcast-align -Wunused -Wshadow -Wold-style-cast -Wpointer-arith -Wcast-qual -Wno-missing-braces
 
 BIN     := bin
 SRC     := src

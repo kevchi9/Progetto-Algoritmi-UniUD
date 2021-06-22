@@ -56,9 +56,9 @@ int AVL::get_balance(Node *x)
     }
 }
 
-void AVL::check_height(Node *root)
+void AVL::check_height(Node *n_root)
 {
-    std::cout << root->get_height() << '\n';
+    std::cout << n_root->get_height() << '\n';
 }
 
 void AVL::fix_height(Node *x)

@@ -18,7 +18,7 @@ std::vector<int> input_keys;
 
 std::vector<std::string> input_values;
 
-int n = 500;
+constexpr int n = 500;
 
 std::string rand_str_generator(const unsigned int length)
 {
@@ -84,7 +84,6 @@ double calculate_stderr(double mean, double time_results[])
     return sqrt(standard_err / 100);
 }
 
-
 void tree_tester(int numero_find[])
 {
     const unsigned int n_cicles = 100;
@@ -127,12 +126,12 @@ void tree_tester(int numero_find[])
         double BST_sum_insert_time = 0;
 
         for (unsigned int i = 0; i < n_nodi; i++) // search for nodes and insert them if they are not in the tree
-        {   
+        {
             auto BST_t1_find = steady_clock::now(); // start find chronometer
             std::string value_of_node = BST_tree.find_value(input_keys[i]);
             auto BST_t2_find = steady_clock::now(); // stop find chronometer
 
-            BST_sum_find_time += duration_cast<t_precision>(BST_t2_find - BST_t1_find).count()  ;
+            BST_sum_find_time += duration_cast<t_precision>(BST_t2_find - BST_t1_find).count();
 
             if (value_of_node == "NULL")
             {
@@ -146,14 +145,16 @@ void tree_tester(int numero_find[])
 
                 BST_sum_insert_time += duration_cast<t_precision>(BST_t2_insert - BST_t1_insert).count();
             }
-
-        }   
+        }
         BST_tree.clear(BST_tree.get_root());
 
-        double mean = BST_sum_find_time/n_nodi;
+        double mean = BST_sum_find_time / n_nodi;
+        std::cout << "BST mean: " << mean << '\n';
         double total_time = BST_sum_find_time + BST_sum_insert_time;
+        std::cout << "BST total time: " << total_time << '\n';
+        std::cout << "BST node n: " << inserted_nodes_counter << '\n';
 
-        output_file1 << n_nodi << ',' << BST_sum_find_time << ',' << inserted_nodes_counter << ','<< BST_sum_insert_time << ',' << total_time << ',' << mean <<'\n';
+        output_file1 << n_nodi << ',' << BST_sum_find_time << ',' << inserted_nodes_counter << ',' << BST_sum_insert_time << ',' << total_time << ',' << mean << '\n';
         output_file1.flush();
 
         BST_time_results[cicles - 1] = total_time;
@@ -179,7 +180,7 @@ void tree_tester(int numero_find[])
                 Node *new_node = new Node(input_keys[i], input_values[i]);
 
                 auto AVL_t1_insert = steady_clock::now();
-                AVL_tree.insert(AVL_tree.get_root(), nullptr, new_node);
+                AVL_tree.insert_helper(AVL_tree.get_root(), nullptr, new_node);
                 auto AVL_t2_insert = steady_clock::now();
 
                 inserted_nodes_counter++;
@@ -188,18 +189,19 @@ void tree_tester(int numero_find[])
             }
         }
         AVL_tree.clear(AVL_tree.get_root());
-
-        mean = AVL_sum_find_time/n_nodi;
+        mean = AVL_sum_find_time / n_nodi;
+        std::cout << "AVL mean: " << mean << '\n';
         total_time = AVL_sum_find_time + AVL_sum_insert_time;
+        std::cout << "AVL total time: " << total_time << '\n';
+        std::cout << "AVL node n: " << inserted_nodes_counter << '\n';
 
-        output_file2 << n_nodi << ',' << AVL_sum_find_time << ',' << inserted_nodes_counter << ','<< AVL_sum_insert_time << ',' << total_time << ',' << mean <<'\n';
+        output_file2 << n_nodi << ',' << AVL_sum_find_time << ',' << inserted_nodes_counter << ',' << AVL_sum_insert_time << ',' << total_time << ',' << mean << '\n';
         output_file2.flush();
 
         AVL_time_results[cicles - 1] = total_time;
         inserted_nodes_counter = 0;
 
         // fine esecuzione AVL - inizio esecuzione RBT
-
         RBT RBT_tree;
 
         double RBT_sum_find_time = 0;
@@ -220,7 +222,6 @@ void tree_tester(int numero_find[])
                 auto RBT_t1_insert = steady_clock::now();
                 RBT_tree.insert(new_node);
                 auto RBT_t2_insert = steady_clock::now();
-
                 inserted_nodes_counter++;
 
                 RBT_sum_insert_time += duration_cast<t_precision>(RBT_t2_insert - RBT_t1_insert).count();
@@ -228,10 +229,13 @@ void tree_tester(int numero_find[])
         }
         RBT_tree.clear(RBT_tree.get_root());
 
-        mean = RBT_sum_find_time/n_nodi;
-        total_time = RBT_sum_find_time + AVL_sum_insert_time;
+        mean = RBT_sum_find_time / n_nodi;
+        std::cout << "RBT mean: " << mean << '\n';
+        total_time = RBT_sum_find_time + RBT_sum_insert_time;
+        std::cout << "RBT mean: " << total_time << '\n';
+        std::cout << "RBT node n: " << inserted_nodes_counter << '\n';
 
-        output_file3 << n_nodi << ',' << RBT_sum_find_time << ',' << inserted_nodes_counter << ','<< RBT_sum_insert_time << ',' << total_time << ',' << mean <<'\n';
+        output_file3 << n_nodi << ',' << RBT_sum_find_time << ',' << inserted_nodes_counter << ',' << RBT_sum_insert_time << ',' << total_time << ',' << mean << '\n';
         output_file3.flush();
 
         RBT_time_results[cicles - 1] = total_time;
@@ -241,10 +245,9 @@ void tree_tester(int numero_find[])
 
         input_keys.clear();
         input_values.clear();
-        // fine esecuzione RBT 
+        // fine esecuzione RBT
 
     } // fine 100 cicli
-
 
     // calcolo medie e stderr dei tre alberi
     double BST_mean = calculate_mean(BST_time_results, numero_find);
