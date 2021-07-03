@@ -23,14 +23,20 @@ constexpr double max_error{0.01};
 const auto resolution{get_system_resolution()};
 const int t_min{static_cast<int>(resolution * ((1 / max_error) + 1))};
 constexpr int iter_var{20};
+bool bst_run = true;
 
 void progress_bar(int iterazione, int max_iterazione, int n_nodi, int &step)
 {
     int percentuale = (100 * (iterazione + 1)) / iter;
+    int progress = percentuale / 3;
+    int space = (100 / 3 - percentuale / 3) - 1;
+
+    progress = progress >= 0 ? progress : 0;
+    space = space >= 0 ? space : 0;
 
     if (percentuale >= step)
     {
-        std::cout << '\r' << percentuale << "% [" << std::string(percentuale / 3, '=') << '>' << std::string((100 / 3 - percentuale / 3) - 1, ' ') << ']';
+        std::cout << '\r' << percentuale << "% [" << std::string(progress, '=') << '>' << std::string(space, ' ') << ']';
         std::cout << "[Iterazione " << iterazione + 1 << " / " << max_iterazione << "] - numero di nodi: " << n_nodi;
         std::cout.flush();
         ++step;
@@ -74,6 +80,11 @@ void test_with_nodes(std::pair<std::vector<int>, std::vector<std::string>> &keys
 
     output_file << n_of_nodes << ',' << tempo_ammortizzato << '\n';
     output_file.flush();
+
+    if (tempo_iterazione > 2200000000.0)
+    {
+        bst_run = false;
+    }
 }
 
 template <typename T, typename N>
@@ -92,7 +103,6 @@ void varianza(std::pair<std::vector<int>, std::vector<std::string>> &keys, std::
             nodes.push_back(new N(keys.first[j], keys.second[j]));
         }
 
-        std::cout << "Varianza: " << i << '/' << iter_var << '\n';
         int c = 0;
         auto t1 = std::chrono::steady_clock::now();
         std::chrono::steady_clock::time_point t2;
@@ -176,7 +186,10 @@ void test_tree(bool worst_case)
             nodes = generate_random_worst(n_of_nodes);
         }
 
-        test_with_nodes<BST, Node>(nodes, output_file_bst, n_of_nodes);
+        if (bst_run)
+        {
+            test_with_nodes<BST, Node>(nodes, output_file_bst, n_of_nodes);
+        }
         test_with_nodes<RBT, NodeRBT>(nodes, output_file_rbt, n_of_nodes);
         test_with_nodes<AVL, Node>(nodes, output_file_avl, n_of_nodes);
     }
