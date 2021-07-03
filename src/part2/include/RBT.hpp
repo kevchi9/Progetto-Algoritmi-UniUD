@@ -15,8 +15,8 @@ private:
 
 public:
     RBT();
-    void set_root(NodeRBT *root);
-    void set_root_delete(NodeRBT *root);
+    void set_root(NodeRBT *x);
+    void set_root_delete(NodeRBT *x);
     NodeRBT *get_root();
 
     /**
@@ -41,12 +41,12 @@ public:
              * 
              * @param new_node The node added to the RBT.ù 
              */
-    void insert_fix(NodeRBT *new_node);
+    void insert_fix(NodeRBT *x);
 
-    NodeRBT *insert_PRed_URed(NodeRBT *new_node);
-    void insert_PRed_UBlack(NodeRBT *new_node);
-    void insert_PRed_UBlack_LL(NodeRBT *new_node);
-    void insert_PRed_UBlack_RR(NodeRBT *new_node);
+    NodeRBT *insert_PRed_URed(NodeRBT *x);
+    void insert_PRed_UBlack(NodeRBT *x);
+    void insert_PRed_UBlack_LL(NodeRBT *x);
+    void insert_PRed_UBlack_RR(NodeRBT *x);
 
     void swap_colors(NodeRBT *node1, NodeRBT *node2);
 
@@ -55,14 +55,14 @@ public:
              * 
              * @param placeh The upper node. (ITS RIGHT CHILD MUST BE NOT NULL)
              */
-    void left_rot(NodeRBT *placeh);
+    void left_rot(NodeRBT *x);
 
     /**
              * Rotates from its left child towards himself all the subtrees (not recursively) 
              * 
              * @param placeh The upper node. (ITS LEFT CHILD MUST BE NOT NULL)
              */
-    void right_rot(NodeRBT *placeh);
+    void right_rot(NodeRBT *x);
 
     /**
              * Finds the element specified by the key passed and

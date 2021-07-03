@@ -7,18 +7,16 @@
 #include <chrono>
 #include <random>
 #include <vector>
-#include <ctime>
+// #include <ctime>
 #include <iostream>
 #include <fstream>
-#include <math.h>
+// #include <math.h>
+#include <array>
 
 using namespace std::chrono;
 using t_precision = std::chrono::nanoseconds;
-std::vector<int> input_keys;
-
-std::vector<std::string> input_values;
-
-constexpr int n = 500;
+// std::vector<int> input_keys;
+// std::vector<std::string> input_values;
 
 std::string rand_str_generator(const unsigned int length)
 {
@@ -38,55 +36,49 @@ std::string rand_str_generator(const unsigned int length)
     return rand_str_generator;
 }
 
-void generate_random_nodes(unsigned int k)
+std::pair<std::vector<int>, std::vector<std::string>> generate_random_nodes(unsigned int k)
 {
+    std::vector<int> input_keys;
+    std::vector<std::string> input_values;
+    input_keys.reserve(k);
+    input_values.reserve(k);
+
     for (unsigned int i = 0; i < k; i++)
     {
         input_keys.push_back(std::rand() % 50000); // il % impone un limite superiore al valore massimo per gli interi generati come chiave dei nodi
         input_values.push_back(rand_str_generator(std::rand() % 25));
     }
+
+    return std::make_pair(input_keys, input_values);
 }
 
-void generate_random_nodes_worst_case(unsigned int k)
+std::pair<std::vector<int>, std::vector<std::string>> generate_random_nodes_worst_case(unsigned int k)
 {
+    std::vector<int> input_keys;
+    std::vector<std::string> input_values;
+    input_keys.reserve(k);
+    input_values.reserve(k);
+
     for (unsigned int i = 1; i < k; i++)
     {
         input_keys.push_back(i);
         input_values.push_back(rand_str_generator(std::rand() % 25));
     }
-}
 
+    return std::make_pair(input_keys, input_values);
+}
+/*
 void core()
 {
-    int numero_find[100];
+    // int numero_find[100];
+    std::array<int, n_find> numero_find;
 
     tree_tester(numero_find);
 }
 
-double calculate_mean(double times[], int numero_find[])
+void tree_tester(std::array<int, n_find> &numero_find)
 {
-    double mean = 0;
-    for (int i = 0; i < 100; i++)
-    {
-        mean += times[i] / numero_find[i];
-    }
-    return mean / 100;
-}
 
-double calculate_stderr(double mean, double time_results[])
-{
-    double standard_err = 0;
-
-    for (int i = 0; i < 100; i++)
-    {
-        standard_err += pow(time_results[i] - mean, 2);
-    }
-    return sqrt(standard_err / 100);
-}
-
-void tree_tester(int numero_find[])
-{
-    const unsigned int n_cicles = 100;
     std::ofstream output_file1;
     std::ofstream output_file2;
     std::ofstream output_file3;
@@ -103,9 +95,9 @@ void tree_tester(int numero_find[])
     output_file3 << " N.Find , Find_ops_time_exec , N.Insert , Insert_ops_time_exec , Total_execution_time , Find_mean , Std_Err " << '\n';
     output_file3.flush();
 
-    double BST_time_results[n_cicles];
-    double AVL_time_results[n_cicles];
-    double RBT_time_results[n_cicles];
+    std::array<double, n_cicles> BST_time_results; // n_cicles = n_find?
+    std::array<double, n_cicles> AVL_time_results;
+    std::array<double, n_cicles> RBT_time_results;
 
     unsigned int inserted_nodes_counter = 0;
 
@@ -116,7 +108,8 @@ void tree_tester(int numero_find[])
         unsigned int n_nodi = n * cicles;
         // numero_find[cicles - 1] = n_nodi;
 
-        generate_random_nodes_worst_case(n_nodi);
+        // generate_random_nodes_worst_case(n_nodi);
+        generate_random_nodes(n_nodi);
 
         // inizio esecuzione BST
 
@@ -150,7 +143,7 @@ void tree_tester(int numero_find[])
 
         double mean = BST_sum_find_time / n_nodi;
         std::cout << "BST mean: " << mean << '\n';
-        double total_time = BST_sum_find_time + BST_sum_insert_time;
+        double total_time = (BST_sum_find_time + BST_sum_insert_time) / n_nodi; // tempo ammortizzato
         std::cout << "BST total time: " << total_time << '\n';
         std::cout << "BST node n: " << inserted_nodes_counter << '\n';
 
@@ -191,7 +184,7 @@ void tree_tester(int numero_find[])
         AVL_tree.clear(AVL_tree.get_root());
         mean = AVL_sum_find_time / n_nodi;
         std::cout << "AVL mean: " << mean << '\n';
-        total_time = AVL_sum_find_time + AVL_sum_insert_time;
+        total_time = (AVL_sum_find_time + AVL_sum_insert_time) / n_nodi;
         std::cout << "AVL total time: " << total_time << '\n';
         std::cout << "AVL node n: " << inserted_nodes_counter << '\n';
 
@@ -231,7 +224,7 @@ void tree_tester(int numero_find[])
 
         mean = RBT_sum_find_time / n_nodi;
         std::cout << "RBT mean: " << mean << '\n';
-        total_time = RBT_sum_find_time + RBT_sum_insert_time;
+        total_time = (RBT_sum_find_time + RBT_sum_insert_time) / n_nodi;
         std::cout << "RBT mean: " << total_time << '\n';
         std::cout << "RBT node n: " << inserted_nodes_counter << '\n';
 
@@ -271,3 +264,5 @@ void tree_tester(int numero_find[])
     output_file2.close();
     output_file3.close();
 }
+
+*/

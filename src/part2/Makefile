@@ -1,5 +1,5 @@
-CXX       := g++
-CXX_FLAGS := -O2 -Wall -Wextra -std=c++17 -pedantic -Wconversion -Wcast-align -Wunused -Wshadow -Wold-style-cast -Wpointer-arith -Wcast-qual -Wno-missing-braces
+CXX       := clang++
+CXX_FLAGS := -O3 -Wall -Wextra -std=c++17 -pedantic -Wcast-align -Wunused -Wshadow -Wold-style-cast -Wpointer-arith -Wcast-qual -Wno-missing-braces
 
 BIN     := bin
 SRC     := src
@@ -17,8 +17,6 @@ run: clean all
 
 $(BIN)/$(EXECUTABLE): $(SRC)/*.cpp
 	$(CXX) $(CXX_FLAGS) -I $(INCLUDE) $^ -o $@ $(LIBRARIES)
-
-
 
 clean:
 	-rm $(BIN)/*

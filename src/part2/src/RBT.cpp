@@ -290,7 +290,6 @@ void RBT::clear(NodeRBT *x)
     clear(x->get_left());
 
     delete x;
-    x = nullptr;
 }
 
 void RBT::print_info(NodeRBT *x)
