@@ -16,8 +16,13 @@ $(OBJ_DIR)/main.o: $(SRC)/main.cpp $(SRC)/Timer.hpp $(SRC)/core.cpp $(SRC)/core.
 $(OBJ_DIR)/core.o: $(SRC)/core.cpp $(SRC)/core.hpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
+create_dirs:
+	@mkdir $(BUILD)
+	@mkdir $(APP_DIR)
+	@mkdir $(OBJ_DIR)
+
 clean:
-	@rm $(APP_DIR)/* $(OBJ_DIR)/*
+	@rm $(APP_DIR)/* $(OBJ_DIR)/* *.csv
 
 info:
 	@echo "[*] Application dir: $(APP_DIR)"
