@@ -24,6 +24,19 @@ const auto resolution{get_system_resolution()};
 const int t_min{static_cast<int>(resolution * ((1 / max_error) + 1))};
 constexpr int iter_var{20};
 
+void progress_bar(int iterazione, int max_iterazione, int n_nodi, int &step)
+{
+    int percentuale = (100 * (iterazione + 1)) / iter;
+
+    if (percentuale >= step)
+    {
+        std::cout << '\r' << percentuale << "% [" << std::string(percentuale / 3, '=') << '>' << std::string((100 / 3 - percentuale / 3) - 1, ' ') << ']';
+        std::cout << "[Iterazione " << iterazione + 1 << " / " << max_iterazione << "] - numero di nodi: " << n_nodi;
+        std::cout.flush();
+        ++step;
+    }
+}
+
 template <typename T, typename N>
 void test_with_nodes(std::pair<std::vector<int>, std::vector<std::string>> &keys, std::ofstream &output_file, int n_of_nodes)
 {
@@ -147,13 +160,13 @@ void test_tree(bool worst_case)
     output_file_avl << "N, Tempo_Ammortizzato" << '\n';
     output_file_avl.flush();
 
+    int displayNext = 1;
     for (int i = 0; i < iter; ++i)
     {
         int n_of_nodes{static_cast<int>(a * pow(1000, static_cast<double>(i) / 99))};
-        std::cout << n_of_nodes << " - Iterazione : " << i + 1 << '/' << iter << '\n';
+        progress_bar(i, iter, n_of_nodes, displayNext);
 
         std::pair<std::vector<int>, std::vector<std::string>> nodes;
-
         if (!worst_case)
         {
             nodes = generate_random(n_of_nodes);
@@ -189,10 +202,11 @@ void calc_varianza()
     output_file_avl << "N, Varianza" << '\n';
     output_file_avl.flush();
 
+    int displayNext = 1;
     for (int i = 0; i < iter; ++i)
     {
         int n_of_nodes{static_cast<int>(a * pow(1000, static_cast<double>(i) / 99))};
-        std::cout << n_of_nodes << " - Iterazione : " << i + 1 << '/' << iter << '\n';
+        progress_bar(i, iter, n_of_nodes, displayNext);
 
         std::pair<std::vector<int>, std::vector<std::string>> nodes;
 
@@ -214,7 +228,8 @@ void start_test(const bool worst_case)
     std::srand(seed);
 
     test_tree(worst_case);
-    if (!worst_case) {
+    if (!worst_case)
+    {
         calc_varianza();
-    }     
+    }
 }
