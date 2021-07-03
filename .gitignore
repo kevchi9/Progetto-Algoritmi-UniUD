@@ -200,3 +200,6 @@ build/*
 
 # Ignore Mac system files
 .DS_Store
+
+# archive files
+*.zip

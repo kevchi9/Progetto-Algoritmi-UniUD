@@ -56,21 +56,21 @@ int AVL::get_balance(Node *x)
     }
 }
 
-void AVL::check_height(Node *n_root)
+void AVL::check_height(Node *x)
 {
-    std::cout << n_root->get_height() << '\n';
+    std::cout << x->get_height() << '\n';
 }
 
 void AVL::fix_height(Node *x)
-{   
+{
     Node *z = x->get_left();
     Node *y = x->get_right();
 
     if (z != nullptr && y != nullptr)
     {
-        x->set_height(std::max(z->get_height(), y->get_height()) +1);
-    } 
-    else if (z != nullptr) 
+        x->set_height(std::max(z->get_height(), y->get_height()) + 1);
+    }
+    else if (z != nullptr)
     {
         x->set_height(z->get_height() + 1);
     }
@@ -91,7 +91,7 @@ void AVL::left_rot(Node *x)
     Node *p = x->get_parent();
 
     x->set_right(z);
-    if (z != NULL)          
+    if (z != NULL)
     {
         z->set_parent(x);
     }
@@ -124,12 +124,11 @@ void AVL::left_rot(Node *x)
     {
         fix_height(w);
         w = w->get_parent();
-
     }
 }
 
 void AVL::right_rot(Node *x)
-{    
+{
     Node *y = x->get_left();
     Node *z = y->get_right();
     Node *p = x->get_parent();
@@ -160,7 +159,7 @@ void AVL::right_rot(Node *x)
         }
     }
     y->set_parent(p);
-   
+
     fix_height(x);
     fix_height(y);
     Node *w = y->get_parent();
@@ -174,9 +173,9 @@ void AVL::right_rot(Node *x)
 void AVL::right_left_rot(Node *x)
 {
     Node *y = x->get_right();
-     assert(y != NULL);
-     Node *z = y->get_left();
-     assert(z != NULL);
+    assert(y != NULL);
+    Node *z = y->get_left();
+    assert(z != NULL);
 
     right_rot(y);
     left_rot(x);
@@ -185,9 +184,9 @@ void AVL::right_left_rot(Node *x)
 void AVL::left_right_rot(Node *x)
 {
     Node *y = x->get_left();
-     assert(y != NULL);
-     Node *z = y->get_right();
-     assert(z != NULL);
+    assert(y != NULL);
+    Node *z = y->get_right();
+    assert(z != NULL);
 
     left_rot(y);
     right_rot(x);
@@ -295,13 +294,18 @@ void AVL::remove(int k)
 }
 */
 
+void AVL::insert(Node *x)
+{
+    insert_helper(get_root(), nullptr, x);
+}
+
 void AVL::insert_helper(Node *x, Node *p, Node *y)
 {
-    insert(x, p, y);
+    insert_and_balance(x, p, y);
     balance_helper(y->get_parent());
 }
 
-int AVL::insert(Node *x, Node *p, Node *y)
+int AVL::insert_and_balance(Node *x, Node *p, Node *y)
 {
     int k = y->get_key();
     if (get_root() == nullptr) // if tree was empty
@@ -312,34 +316,33 @@ int AVL::insert(Node *x, Node *p, Node *y)
 
     if (x == nullptr)
     {
-        y->set_parent( p );
+        y->set_parent(p);
 
-        if( k < p->get_key() )
+        if (k < p->get_key())
         {
             p->set_left(y);
         }
-        else 
+        else
         {
             p->set_right(y);
         }
         return y->get_height();
     }
     else if (k < x->get_key())
-    {   
+    {
         Node *l = x->get_left();
 
-        if (x->get_height() < insert(l, x, y) + 1)
+        if (x->get_height() < insert_and_balance(l, x, y) + 1)
         {
             x->increase_height();
             return x->get_height();
         }
-        
     }
-    else if (k >= x->get_key())
+    else
     {
         Node *r = x->get_right();
 
-        if (x->get_height() < insert(r, x, y) + 1) 
+        if (x->get_height() < insert_and_balance(r, x, y) + 1)
         {
             x->increase_height();
             return x->get_height();
@@ -363,7 +366,7 @@ void AVL::balance_helper(Node *x) // anticamera del balance
 }
 
 void AVL::balance(Node *x)
-{   
+{
     Node *left = x->get_left();
     Node *right = x->get_right();
     if (get_balance(x) > 1) // sbilanciato a sx
@@ -400,6 +403,4 @@ void AVL::clear(Node *x)
     clear(x->get_left());
     clear(x->get_right());
     delete x;
-    x = nullptr;
-    return;
 }

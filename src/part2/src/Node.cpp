@@ -1,67 +1,68 @@
 #include "../include/Node.hpp"
 #include <iostream>
 
-    Node::Node(int k, std::string v) : key(k), value(v), height(1){}
- 
-    void Node::set_parent(Node* x) 
-    {
-        parent = x;
-    }
+Node::Node(int k, std::string &v) : key(k), value(v), height(1) {}
 
-    Node* Node::get_parent()
-    {
-        return parent;
-    }
+void Node::set_parent(Node *x)
+{
+    parent = x;
+}
 
-    void Node::set_left(Node* x)
-    {
-        left = x;
-    }
+Node *Node::get_parent()
+{
+    return parent;
+}
 
-    Node* Node::get_left()
-    {
-        return left;
-    }
+void Node::set_left(Node *x)
+{
+    left = x;
+}
 
-    void Node::set_right(Node* x)
-    {
-        right = x;
-    }
+Node *Node::get_left()
+{
+    return left;
+}
 
-    void Node::decrease_height()
-    {
-        height--;
-    }
+void Node::set_right(Node *x)
+{
+    right = x;
+}
 
-    void Node::increase_height()
-    {
-        height++;
-    }
+void Node::decrease_height()
+{
+    height--;
+}
 
-    Node* Node::get_right()
-    {
-        return right;
-    }
+void Node::increase_height()
+{
+    height++;
+}
 
-    int Node::get_key()
-    {
-        return key;
-    }
+Node *Node::get_right()
+{
+    return right;
+}
 
-    std::string Node::get_value()
-    {
-        return value;
-    }
+int Node::get_key() const
+{
+    return key;
+}
 
-    int Node::get_height()
-    {
-        return height;
-    }
+std::string Node::get_value() const
+{
+    return value;
+}
 
-    void Node::set_height(int k){
-        height = k;
-    }
-    /*
+int Node::get_height() const
+{
+    return height;
+}
+
+void Node::set_height(int k)
+{
+    height = k;
+}
+/*
     int Node::get_height() {
         
         int left = 0;
@@ -86,4 +87,4 @@
             return right+1;
         }
     }    
-    */   
+    */

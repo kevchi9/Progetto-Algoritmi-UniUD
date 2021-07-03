@@ -4,19 +4,18 @@
 #include <string.h>
 #include "../include/Node.hpp"
 #include "../include/BST.hpp"
-class AVL : public BST {
+class AVL : public BST
+{
 
-    private: 
+private:
+    Node *root;
 
-    Node* root;
-
-    public:
-
+public:
     AVL();
 
-    Node* get_root();
+    Node *get_root();
 
-    void set_root(Node* x);
+    void set_root(Node *x);
     /**
      * Prints the representation of the tree.
      * @param x The root of each subtree
@@ -25,37 +24,40 @@ class AVL : public BST {
 
     /**
      * Calculates the height difference between two subtree
-     * @param root The root of the two subtree.
+     * @param x The root of the two subtree.
      * @return Value of the difference. 
      */
-    int get_balance(Node* root);
+    int get_balance(Node *x);
 
     /**
      * Does a left rotation on Node x.
      * @param x Node used as pin.
      */
-    void left_rot(Node* x);
+    void left_rot(Node *x);
 
     /**
      * Does a right rotation on Node x.
      * @param x Node used as pin.
      */
-    void right_rot(Node* x);
+    void right_rot(Node *x);
 
-    void right_left_rot(Node* x);
+    void right_left_rot(Node *x);
 
-    void left_right_rot(Node* x);
+    void left_right_rot(Node *x);
     /**
      * Adds a new Node to the tree with the given root and then returns the tree's root.
      * @param z The new node;
      */
-    int insert(Node *x, Node *p, Node *y);
+    int insert_and_balance(Node *x, Node *p, Node *y);
 
     void insert_helper(Node *x, Node *p, Node *y);
 
-    Node* find(int k);
+    void insert(Node *x);
 
-    void transplant(Node* u, Node* v);
+    Node *find(int k);
+
+    void transplant(Node *u, Node *v);
+
     /**
      * Removes Node with key k from the tree keeping the AVL properties.
      * @param root Root of the tree.
@@ -66,24 +68,23 @@ class AVL : public BST {
 
     /**
      * Checks if the tree is balanced after an insertion and fixes it.
-     * @param root Root of the tree.
+     * @param x Root of the tree.
      * @return The new root.
      */
-    void balance(Node* root);
+    void balance(Node *x);
 
-    void balance_helper(Node* x);
+    void balance_helper(Node *x);
 
     /**
      * Calculates heights of the root's subtrees
      */
-    void check_height(Node* x);
+    void check_height(Node *x);
 
-    void clear(Node* x);
+    void clear(Node *x);
 
     std::string find_value(int k);
 
     void fix_height(Node *x);
-
 };
 
 #endif

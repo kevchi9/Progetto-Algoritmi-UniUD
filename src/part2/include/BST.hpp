@@ -3,19 +3,18 @@
 
 #include "../include/Node.hpp"
 
-class BST{
+class BST
+{
 
-    private:
+private:
+    Node *root;
 
-    Node* root;
-
-    public:
-
+public:
     BST();
 
-    Node* get_root();
+    Node *get_root();
 
-    void set_root(Node* x);
+    void set_root(Node *x);
 
     /**
      * Prints the representation of the tree.
@@ -28,7 +27,7 @@ class BST{
      * @param k The key of the new Node.
      * @param v The value of the new Node.
      */
-    void insert(Node* z);
+    void insert(Node *z);
 
     /**
      * Replaces one subtree as a child of its parent with another subtree. 
@@ -45,14 +44,14 @@ class BST{
      * @param x Root of the subtree.
      * @return The minimum of the subtree.
      */
-    Node* minimum(Node *x);
+    Node *minimum(Node *x);
 
     /**
      * Finds the Node x with key k in the tree with the given root.
      * @param k Key of the Node to find.
      * @return The Node x.
      */
-    Node* find(int k);
+    Node *find(int k);
 
     /**
      * This function is not needed for the functioning of the BST.
@@ -73,11 +72,11 @@ class BST{
      * @param x The root of each subtree.
      * @return The new root (NULL).
      */
-    void clear(Node* root);
+    void clear(Node *x);
     /**
      *  ### ONLY FOR DEBUGGING PURPOSES ###
      */
-    void print_info(Node* root);
+    void print_info(Node *x);
 };
 
 #endif
