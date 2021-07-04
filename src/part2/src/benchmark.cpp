@@ -54,8 +54,8 @@ void test_with_nodes(std::pair<std::vector<int>, std::vector<std::string>> &keys
     }
 
     int c = 0;
-    auto t1 = std::chrono::steady_clock::now();
     std::chrono::steady_clock::time_point t2;
+    auto t1 = std::chrono::steady_clock::now();
 
     do
     {
@@ -81,7 +81,7 @@ void test_with_nodes(std::pair<std::vector<int>, std::vector<std::string>> &keys
     output_file << n_of_nodes << ',' << tempo_ammortizzato << '\n';
     output_file.flush();
 
-    if (tempo_iterazione > 2200000000.0)
+    if (tempo_ammortizzato > 300000.0)
     {
         bst_run = false;
     }
@@ -104,8 +104,8 @@ void varianza(std::pair<std::vector<int>, std::vector<std::string>> &keys, std::
         }
 
         int c = 0;
-        auto t1 = std::chrono::steady_clock::now();
         std::chrono::steady_clock::time_point t2;
+        auto t1 = std::chrono::steady_clock::now();
 
         do
         {
@@ -127,21 +127,23 @@ void varianza(std::pair<std::vector<int>, std::vector<std::string>> &keys, std::
 
         double tempo_iterazione = (static_cast<double>(std::chrono::duration_cast<t_precision>(t2 - t1).count()) / c) / n_of_nodes;
         tempi[i] = tempo_iterazione;
-        tempo_medio += tempo_iterazione;
     }
 
-    tempo_medio /= iter_var;
+    tempo_medio = std::accumulate(tempi.begin(), tempi.end(), 0.0) / tempi.size();
 
-    // auto lambda_func = [&](double counter, const double tempo)
-    // { return counter + pow(tempo - tempo_medio, 2); };
-    // varianza = std::accumulate(tempi.begin(), tempi.end(), 0.0, lambda_func);
+    //auto variance_func = [&tempo_medio](double accumulator, const double tempo)
+    //{ return accumulator + pow(tempo - tempo_medio, 2); };
+    //varianza = std::accumulate(tempi.begin(), tempi.end(), 0.0, variance_func);
 
     for (const auto &tempo : tempi)
     {
         varianza += pow(tempo - tempo_medio, 2);
     }
 
-    output_file << n_of_nodes << ',' << varianza << '\n';
+    varianza /= tempi.size();
+    double std_dev = sqrt(varianza);
+
+    output_file << n_of_nodes << ',' << varianza << ',' << std_dev << '\n';
     output_file.flush();
 }
 
@@ -163,11 +165,11 @@ void test_tree(bool worst_case)
         output_file_rbt.open("tempi_RBT.csv");
         output_file_avl.open("tempi_AVL.csv");
     }
-    output_file_bst << "N, Tempo_Ammortizzato" << '\n';
+    output_file_bst << "N, Tempo_Ammortizzato\n";
     output_file_bst.flush();
-    output_file_rbt << "N, Tempo_Ammortizzato" << '\n';
+    output_file_rbt << "N, Tempo_Ammortizzato\n";
     output_file_rbt.flush();
-    output_file_avl << "N, Tempo_Ammortizzato" << '\n';
+    output_file_avl << "N, Tempo_Ammortizzato\n";
     output_file_avl.flush();
 
     int displayNext = 1;
@@ -208,11 +210,11 @@ void calc_varianza()
     output_file_rbt.open("varianza_RBT.csv");
     output_file_avl.open("varianza_AVL.csv");
 
-    output_file_bst << "N, Varianza" << '\n';
+    output_file_bst << "N, Varianza, StdDev\n";
     output_file_bst.flush();
-    output_file_rbt << "N, Varianza" << '\n';
+    output_file_rbt << "N, Varianza, StdDev\n";
     output_file_rbt.flush();
-    output_file_avl << "N, Varianza" << '\n';
+    output_file_avl << "N, Varianza, StdDev\n";
     output_file_avl.flush();
 
     int displayNext = 1;
@@ -240,9 +242,11 @@ void start_test(const bool worst_case)
     unsigned int seed = std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::steady_clock::now().time_since_epoch()).count();
     std::srand(seed);
 
+    std::cout << "\nTest alberi" << (worst_case ? " caso peggiore" : "") << "...\n";
     test_tree(worst_case);
     if (!worst_case)
     {
+        std::cout << "\nTest varianza...\n";
         calc_varianza();
     }
 }
